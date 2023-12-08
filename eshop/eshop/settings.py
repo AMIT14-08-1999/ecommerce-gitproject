@@ -15,6 +15,7 @@ import dotenv
 import cloudinary
 import cloudinary.api
 import cloudinary.uploader
+from datetime import timedelta
 
 dotenv.read_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -43,9 +44,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "django_filters",
+    'rest_framework_simplejwt',
     "cloudinary",
     "cloudinary_storage",
     "product.apps.ProductConfig",
+    "account.apps.AccountConfig",
 ]
 
 MIDDLEWARE = [
@@ -94,7 +97,19 @@ DATABASES = {
 }
 
 REST_FRAMEWORK = {
-    "EXCEPTION_HANDLER": "utils.custom_exception_handler.custom_exception_handler"
+    "EXCEPTION_HANDLER": "utils.custom_exception_handler.custom_exception_handler",
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=15),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "ROTATE_REFRESH_TOKENS": False,
+    "BLACKLIST_AFTER_ROTATION": True,
+    "AUTH_HEADER_TYPES": ("Bearer",),
+    "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
 }
 
 # Password validation

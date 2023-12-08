@@ -16,9 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
+from rest_framework_simplejwt.views import TokenObtainPairView
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/',include('product.urls'))
+    path('api/',include('product.urls')),
+    path('api/',include('account.urls')),
+    path('api/token/', TokenObtainPairView.as_view()),
+
 ]
 
 handle404='utils.error_views.handler404'
