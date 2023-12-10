@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "cloudinary_storage",
     "product.apps.ProductConfig",
     "account.apps.AccountConfig",
+    "order.apps.OrderConfig"
 ]
 
 MIDDLEWARE = [
