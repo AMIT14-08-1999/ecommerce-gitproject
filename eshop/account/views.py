@@ -11,7 +11,7 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from django.utils.crypto import get_random_string
 from django.core.mail import send_mail
-
+from utils.helper import get_current_host
 
 # Create your views here.
 @api_view(["POST"])
@@ -61,12 +61,6 @@ def update_User(request):
     user.save()
     serializer = UserSerializer(user, many=False)
     return Response(serializer.data)
-
-
-def get_current_host(request):
-    protocol = request.is_secure() and "https" or "http"
-    host = request.get_host()
-    return "{protocol}://{host}/".format(protocol=protocol, host=host)
 
 
 @api_view(["POST"])
